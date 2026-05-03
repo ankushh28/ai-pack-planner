@@ -7,6 +7,9 @@ export const TRIP_TYPES = [
   "beach",
   "hiking",
   "family",
+  "romantic",
+  "backpacking",
+  "city-break",
   "other",
 ] as const;
 
@@ -16,6 +19,13 @@ export const TRANSPORTS = [
   "car",
   "bus",
   "cruise",
+] as const;
+
+export const GENDERS = [
+  "male",
+  "female",
+  "non-binary",
+  "prefer-not-to-say",
 ] as const;
 
 export const MONTHS = [
@@ -56,6 +66,7 @@ export const TripInputSchema = z.object({
   month: z.enum(MONTHS),
   tripType: z.enum(TRIP_TYPES),
   transport: z.enum(TRANSPORTS),
+  gender: z.enum(GENDERS).default("prefer-not-to-say"),
   extras: z.string().trim().max(300, "Keep it under 300 chars").default(""),
 });
 

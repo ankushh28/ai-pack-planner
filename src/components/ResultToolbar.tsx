@@ -58,13 +58,13 @@ export function ResultToolbar({
   };
 
   return (
-    <div className="flex flex-wrap gap-2">
-      <Button variant="outline" size="sm" onClick={handleMarkdown}>
+    <div className="sticky top-16 z-20 -mx-1 flex flex-wrap items-center gap-2 rounded-2xl border border-border/60 bg-card/80 px-3 py-2 shadow-sm backdrop-blur">
+      <Button variant="ghost" size="sm" onClick={handleMarkdown}>
         <Download className="mr-2 h-4 w-4" />
         Markdown
       </Button>
       <Button
-        variant="outline"
+        variant="ghost"
         size="sm"
         onClick={handlePdf}
         disabled={busyPdf}
@@ -72,12 +72,18 @@ export function ResultToolbar({
         <FileDown className="mr-2 h-4 w-4" />
         {busyPdf ? "Building PDF…" : "PDF"}
       </Button>
-      <Button variant="outline" size="sm" onClick={handleShare}>
+      <Button variant="ghost" size="sm" onClick={handleShare}>
         <LinkIcon className="mr-2 h-4 w-4" />
         Share
       </Button>
+      <div className="ml-auto" />
       {onReset ? (
-        <Button variant="ghost" size="sm" onClick={onReset}>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={onReset}
+          className="border-dashed"
+        >
           <RotateCcw className="mr-2 h-4 w-4" />
           New trip
         </Button>
