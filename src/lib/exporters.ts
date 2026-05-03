@@ -51,8 +51,50 @@ export async function downloadPdfFromElement(
   ]);
   const canvas = await html2canvas(el, {
     scale: 2,
-    backgroundColor: getComputedStyle(document.body).backgroundColor || "#ffffff",
+    backgroundColor: "#ffffff",
     useCORS: true,
+    onclone: (doc) => {
+      const root = doc.documentElement;
+      root.style.setProperty("--background", "#ffffff");
+      root.style.setProperty("--foreground", "#0f172a");
+      root.style.setProperty("--card", "#ffffff");
+      root.style.setProperty("--card-foreground", "#0f172a");
+      root.style.setProperty("--popover", "#ffffff");
+      root.style.setProperty("--popover-foreground", "#0f172a");
+      root.style.setProperty("--primary", "#2563eb");
+      root.style.setProperty("--primary-foreground", "#ffffff");
+      root.style.setProperty("--secondary", "#fbbf24");
+      root.style.setProperty("--secondary-foreground", "#0f172a");
+      root.style.setProperty("--muted", "#f1f5f9");
+      root.style.setProperty("--muted-foreground", "#475569");
+      root.style.setProperty("--accent", "#ec4899");
+      root.style.setProperty("--accent-foreground", "#ffffff");
+      root.style.setProperty("--destructive", "#ef4444");
+      root.style.setProperty("--border", "#e5e7eb");
+      root.style.setProperty("--input", "#f8fafc");
+      root.style.setProperty("--ring", "#2563eb");
+      root.style.setProperty("--chart-1", "#2563eb");
+      root.style.setProperty("--chart-2", "#1d4ed8");
+      root.style.setProperty("--chart-3", "#4338ca");
+      root.style.setProperty("--chart-4", "#7c3aed");
+      root.style.setProperty("--chart-5", "#c026d3");
+      root.style.setProperty("--sidebar", "#f8fafc");
+      root.style.setProperty("--sidebar-foreground", "#0f172a");
+      root.style.setProperty("--sidebar-primary", "#2563eb");
+      root.style.setProperty("--sidebar-primary-foreground", "#ffffff");
+      root.style.setProperty("--sidebar-accent", "#c026d3");
+      root.style.setProperty("--sidebar-accent-foreground", "#ffffff");
+      root.style.setProperty("--sidebar-border", "#e5e7eb");
+      root.style.setProperty("--sidebar-ring", "#2563eb");
+      doc.body.style.backgroundColor = "#ffffff";
+      const style = doc.createElement("style");
+      style.textContent = `
+        .glass { background-color: rgba(255, 255, 255, 0.85) !important; background-image: none !important; }
+        .bg-aurora { background-image: none !important; }
+        .text-gradient-brand { background: none !important; color: inherit !important; }
+      `;
+      doc.head.appendChild(style);
+    },
   });
   const imgData = canvas.toDataURL("image/png");
   const pdf = new jsPDF({ orientation: "portrait", unit: "pt", format: "a4" });
